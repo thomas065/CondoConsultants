@@ -50,5 +50,11 @@ footer .bi:hover {
 }
 
 .synapse {
-    height: 650px;
+    height: 200px;
+}
+
+body {
+    background-image: url(/img/condo.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
 }
