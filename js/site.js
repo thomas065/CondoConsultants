@@ -77,9 +77,16 @@ function displayLoan(stats) {
 // display stats
 function displayStats(params) {
 
-
     document.getElementById('totalPrincipal').textContent = params.totalPrincipal;
     document.getElementById('totalInterest').textContent = params.totalInterest;
     document.getElementById('totalCost').textContent = params.totalCost;
     document.getElementById('displayPage').textContent = params.monthlyPayment
 }
+
+// function calculateTable() {
+//     let table = [
+//         {
+//             January: 
+//         },
+//     ];
+// }
