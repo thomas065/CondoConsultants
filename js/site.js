@@ -6,10 +6,10 @@ function getUserInfo() {
 
     loanAmount = parseInt(loanAmount);
     monthlyTerm = parseInt(monthlyTerm);
-    interestRate = parseInt(interestRate);
+    interestRate = parseFloat(interestRate);
 
     let newHome = calculateLoan(loanAmount, monthlyTerm, interestRate);
-    displayStats(calculateLoan(newHome));
+    displayStats(newHome);
 }
 
 // do the calculations
@@ -23,6 +23,7 @@ function calculateLoan(loan, term, interest) {
     // calculate rediculous math I had to look up
     let totalPrincipal = 0;
     let totalInterest = 0;
+    let balance = loanAmount;
 
     let numerator = loan * monthlyInterestRate;
     let denominator = 1 - Math.pow(1 + monthlyInterestRate, -term);
@@ -38,25 +39,21 @@ function calculateLoan(loan, term, interest) {
         
         totalPrincipal += principalPayment;
         totalInterest += interestPayment;
-        loanAmount -= principalPayment;
-        balance -= monthlyBalance;
+        balance -= principalPayment;
     }
     let totalCost = totalPrincipal + totalInterest;
-    // balance
-    const monthlyBalance = totalCost - monthlyPayment
 
     return {
-        monthlyPayment: monthlyPayment,
-        totalPrincipal: totalPrincipal,
-        totalInterest: totalInterest,
-        totalCost: totalCost,
-        monthlyBalance: monthlyBalance
+        monthlyPayment: (Math.round(monthlyPayment * 100) / 100).toFixed(2).toLocaleString(),
+        totalPrincipal: (Math.round(totalPrincipal * 100) / 100).toFixed(2).toLocaleString(),
+        totalInterest: (Math.round(totalInterest * 100) / 100).toFixed(2).toLocaleString(),
+        totalCost: (Math.round(totalCost * 100) / 100).toFixed(2).toLocaleString(),
+        monthlyBalance: (Math.round(balance * 100) / 100).toFixed(2).toLocaleString()
     }
 }
 
 // display table on the page
 function displayLoan(stats) {
-    displayStats(params)
 
     let data = document.getElementById('calculation-table');
     data.innerHTML = '';
@@ -67,7 +64,7 @@ function displayLoan(stats) {
     document.getElementById('payment').textContent = stats.monthlyPayment;
     document.getElementById('principle').textContent = stats.totalPrincipal;
     document.getElementById('interest').textContent = stats.totalInterest;
-    document.getElementById('balance').textContent = stats.monthlyBalance
+    document.getElementById('balance').textContent = stats.monthlyBalance;
 
     let html = '';
 
@@ -79,10 +76,10 @@ function displayLoan(stats) {
 
 // display stats
 function displayStats(params) {
-    let stats = calculateLoan(params);
 
-    document.getElementById('totalPrincipal').textContent = stats.totalPrincipal;
-    document.getElementById('totalInterest').textContent = stats.totalInterest;
-    document.getElementById('totalCost').textContent = stats.totalCost;
-    document.getElementById('displayPage').textContent = stats.monthlyPayment
+
+    document.getElementById('totalPrincipal').textContent = params.totalPrincipal;
+    document.getElementById('totalInterest').textContent = params.totalInterest;
+    document.getElementById('totalCost').textContent = params.totalCost;
+    document.getElementById('displayPage').textContent = params.monthlyPayment
 }
