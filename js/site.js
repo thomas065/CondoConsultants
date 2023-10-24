@@ -8,9 +8,22 @@ function getUserInfo() {
     monthlyTerm = parseInt(monthlyTerm);
     interestRate = parseFloat(interestRate);
 
-    let newHome = calculateLoan(loanAmount, monthlyTerm, interestRate);
-    displayStats(newHome);
-    // displayLoanTable();
+    // if the results are NOT A NUMBER
+    if (isNaN(loanAmount) || isNaN(monthlyTerm) || isNaN(interestRate) || loanAmount <= 0 || monthlyTerm <= 0 || interestRate <= 0) {
+        Swal.fire ({
+            icon: 'error',
+            backdrop: false,
+            title: `Oops!`,
+            text: `Please enter valid numbers for your loan.`
+        })
+    } else {
+
+        let newHome = calculateLoan(loanAmount, monthlyTerm, interestRate);
+        displayStats(newHome);
+
+        // let payments = calculateLoanTable(loanAmount, monthlyTerm, interestRate);
+        // displayLoanTable(payments)
+    }
 }
 
 // do the calculations
@@ -19,7 +32,7 @@ function calculateLoan(loan, term, interest) {
     const monthlyInterestRate = interest / 1200;
 
     // calculate the number of monthly payments
-    const numberOfPayments = term;
+    const numberOfPayments = parseInt(term);
 
     // calculate rediculous math I had to look up
     let totalPrincipal = 0;
@@ -44,12 +57,17 @@ function calculateLoan(loan, term, interest) {
     }
     let totalCost = totalPrincipal + totalInterest;
 
+    let formatOptions = {
+        style: 'currency',
+        currency: 'USD'
+    }
+
     return {
-        monthlyPayment: (Math.round(monthlyPayment * 100) / 100).toFixed(2).toLocaleString(),
-        totalPrincipal: (Math.round(totalPrincipal * 100) / 100).toFixed(2).toLocaleString(),
-        totalInterest: (Math.round(totalInterest * 100) / 100).toFixed(2).toLocaleString(),
-        totalCost: (Math.round(totalCost * 100) / 100).toFixed(2).toLocaleString(),
-        monthlyBalance: (Math.round(balance * 100) / 100).toFixed(2).toLocaleString()
+        monthlyPayment: monthlyPayment.toLocaleString('en-US', formatOptions),
+        totalPrincipal: totalPrincipal.toLocaleString('en-US', formatOptions),
+        totalInterest: totalInterest.toLocaleString('en-US', formatOptions),
+        totalCost: totalCost.toLocaleString('en-US', formatOptions),
+        monthlyBalance: balance.toLocaleString('en-US', formatOptions)
     }
 }
 
@@ -62,33 +80,35 @@ function displayStats(params) {
     document.getElementById('displayPage').textContent = params.monthlyPayment
 }
 
-// display table on the page
-function displayLoanTable(params) {
-    let table = [
-        {
-            month: '',
-            payment: 0,
-            principal: 0,
-            interest: 0,
-            total_interest: 0,
-            balance: loanAmount,
-        },
-    ];
+// calculate table on the page
+// function calculateLoanTable() {
+//     let data = document.getElementById('calculation-table');
 
-    let data = document.getElementById('calculation-table');
-    data.innerHTML = '';
+//     let table = [
+//         {
+//             month: month,
+//             payment: monthlyPayment,
+//             principal: principalPayment,
+//             interest: interest,
+//             total_interest: total_interest,
+//             balance: loanAmount,
+//         },
+//     ];
 
-    const dataTemplate = document.getElementById('calculate-data');
-    dataTemplate.content.cloneNode(true);
+//     const dataTemplate = document.getElementById('calculate-data');
 
-    for(let i = 0; i < table.length; i++) {
+//     paymentsArr.forEach(table => {
+//         let tableRow = dataTemplate.content.cloneNode(true);
 
-    document.getElementById('payment').textContent = table.payment;
-    document.getElementById('totalInterest').textContent = table.total_interest
-    document.getElementById('principle').textContent = table.principal;
-    document.getElementById('interest').textContent = table.interest;
-    document.getElementById('balance').textContent = table.balance;
+//         let tableCells = tableRow.querySelectorAll('td');
 
-    data.appendChild(dataTemplate)
-    }
-}
+//         tableCells[0].textContent = table.month;
+//         tableCells[1].textContent = table.payment.toLocaleString('en-US', formatOptions);
+//         tableCells[2].textContent = table.principal.toLocaleString('en-US', formatOptions);
+//         tableCells[3].textContent = table.interest.toLocaleString('en-US', formatOptions);
+//         tableCells[4].textContent = table.total_interest.toLocaleString('en-US', formatOptions);
+//         tableCells[5].textContent = Math.abs(table.balance).toLocaleString('en-US', formatOptions);
+
+//         paymentsTable.appendChild(tableRow)
+//     });
+// }

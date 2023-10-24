@@ -116,6 +116,8 @@
                                 class="form-control"
                                 id="loanAmount"
                                 name="loanAmount"
+                                min="0"
+                                step="100"
                                 value="25000"
                             />
                         </div>
@@ -128,6 +130,7 @@
                                 class="form-control"
                                 id="monthlyTerm"
                                 name="monthlyTerm"
+                                min="1"
                                 value="60"
                             />
                         </div>
@@ -140,6 +143,7 @@
                                 class="form-control"
                                 id="interestRate"
                                 name="interestRate"
+                                min="2.5"
                                 value="5"
                             />
                         </div>
@@ -161,10 +165,10 @@
                     >
                         <h1>Your Monthly Payments</h1>
                         <div class="my-5">
-                            <i class="bi bi-currency-dollar"
-                                ><span class="display-4 text-success fw-bold" id="displayPage"
-                                    >471.78</span
-                                ></i
+                            <span
+                                class="display-4 text-success fw-bold"
+                                id="displayPage"
+                                >$471.78</span
                             >
                         </div>
                         <div class="row row-cols-2 ps-3 pe-3">
@@ -172,31 +176,19 @@
                                 <strong>Total Principal:</strong>
                             </div>
                             <div class="col-6 text-end">
-                                <i class="bi bi-currency-dollar"
-                                    ><strong id="totalPrincipal"
-                                        >25,000.00</strong
-                                    ></i
-                                >
+                                <strong id="totalPrincipal">$25,000.00</strong>
                             </div>
                             <div class="col-6 text-start">
                                 <strong>Total Interest:</strong>
                             </div>
                             <div class="col-6 text-end">
-                                <i class="bi bi-currency-dollar"
-                                    ><strong id="totalInterest"
-                                        >3,306.85</strong
-                                    ></i
-                                >
+                                <strong id="totalInterest">$3,306.85</strong>
                             </div>
                             <div class="col-6 text-start">
                                 <strong>Total Cost:</strong>
                             </div>
                             <div class="col-6 text-end">
-                                <i class="bi bi-currency-dollar"
-                                    ><strong id="totalCost"
-                                        >28,306.85</strong
-                                    ></i
-                                >
+                                <strong id="totalCost">$28,306.85</strong>
                             </div>
                         </div>
                     </div>
@@ -220,15 +212,7 @@
                         id="calculation-table"
                         class="synapse overflow-y-scroll"
                     >
-                    <!-- calculations go here -->
-                    <!-- <tr class="">
-                        <th scope="row">1</th>
-                        <td id="payment">471.78</td>
-                        <td id="principal">367.61</td>
-                        <td id="interest">104.17</td>
-                        <td id="totalInterest">104.17</td>
-                        <td id="balance">24,632.39</td>
-                    </tr> -->
+                        <!-- calculations go here -->
                     </tbody>
                 </table>
             </div>
