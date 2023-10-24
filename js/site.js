@@ -10,7 +10,7 @@ function getUserInfo() {
 
     let newHome = calculateLoan(loanAmount, monthlyTerm, interestRate);
     displayStats(newHome);
-    displayLoanTable();
+    // displayLoanTable();
 }
 
 // do the calculations
@@ -66,7 +66,7 @@ function displayStats(params) {
 function displayLoanTable(params) {
     let table = [
         {
-            month: 0,
+            month: '',
             payment: 0,
             principal: 0,
             interest: 0,
@@ -83,10 +83,11 @@ function displayLoanTable(params) {
 
     for(let i = 0; i < table.length; i++) {
 
-    document.getElementById('payment').textContent = stats.monthlyPayment;
-    document.getElementById('principle').textContent = stats.totalPrincipal;
-    document.getElementById('interest').textContent = stats.totalInterest;
-    document.getElementById('balance').textContent = stats.monthlyBalance;
+    document.getElementById('payment').textContent = table.payment;
+    document.getElementById('totalInterest').textContent = table.total_interest
+    document.getElementById('principle').textContent = table.principal;
+    document.getElementById('interest').textContent = table.interest;
+    document.getElementById('balance').textContent = table.balance;
 
     data.appendChild(dataTemplate)
     }
