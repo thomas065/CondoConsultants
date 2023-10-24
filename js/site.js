@@ -10,6 +10,7 @@ function getUserInfo() {
 
     let newHome = calculateLoan(loanAmount, monthlyTerm, interestRate);
     displayStats(newHome);
+    displayLoanTable();
 }
 
 // do the calculations
@@ -36,7 +37,7 @@ function calculateLoan(loan, term, interest) {
         const interestPayment = loan * monthlyInterestRate;
         // principal
         const principalPayment = monthlyPayment - interestPayment;
-        
+
         totalPrincipal += principalPayment;
         totalInterest += interestPayment;
         balance -= principalPayment;
@@ -52,28 +53,6 @@ function calculateLoan(loan, term, interest) {
     }
 }
 
-// display table on the page
-function displayLoan(stats) {
-
-    let data = document.getElementById('calculation-table');
-    data.innerHTML = '';
-
-    const dataTemplate = document.getElementById('calculate-data');
-    dataTemplate.content.cloneNode(true);
-
-    document.getElementById('payment').textContent = stats.monthlyPayment;
-    document.getElementById('principle').textContent = stats.totalPrincipal;
-    document.getElementById('interest').textContent = stats.totalInterest;
-    document.getElementById('balance').textContent = stats.monthlyBalance;
-
-    let html = '';
-
-    let tbody = document.getElementById('calculation-table');
-    tbody.innerHTML = html;
-
-    data.appendChild(dataTemplate)
-}
-
 // display stats
 function displayStats(params) {
 
@@ -83,10 +62,32 @@ function displayStats(params) {
     document.getElementById('displayPage').textContent = params.monthlyPayment
 }
 
-// function calculateTable() {
-//     let table = [
-//         {
-//             January: 
-//         },
-//     ];
-// }
+// display table on the page
+function displayLoanTable(params) {
+    let table = [
+        {
+            month: 0,
+            payment: 0,
+            principal: 0,
+            interest: 0,
+            total_interest: 0,
+            balance: loanAmount,
+        },
+    ];
+
+    let data = document.getElementById('calculation-table');
+    data.innerHTML = '';
+
+    const dataTemplate = document.getElementById('calculate-data');
+    dataTemplate.content.cloneNode(true);
+
+    for(let i = 0; i < table.length; i++) {
+
+    document.getElementById('payment').textContent = stats.monthlyPayment;
+    document.getElementById('principle').textContent = stats.totalPrincipal;
+    document.getElementById('interest').textContent = stats.totalInterest;
+    document.getElementById('balance').textContent = stats.monthlyBalance;
+
+    data.appendChild(dataTemplate)
+    }
+}
