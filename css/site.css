@@ -53,6 +53,11 @@ footer .bi:hover {
     height: 200px;
 }
 
+.codeExpo {
+    height: 650px;
+    overflow-y: scroll;
+}
+
 body {
     background-image: url(/img/condo.jpg);
     background-position: center;
